@@ -1,8 +1,7 @@
 
 import sys
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtCore import QByteArray
 from riotclient import *
 from scraper import SummonerInfoScraper
 import webbrowser
@@ -51,7 +50,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Jeaveler"))
         self.reveal.setText(_translate("MainWindow", "팀 전적 확인"))
         self.go_github.setText(_translate("MainWindow", "Github"))
         self.version_label.setText(_translate("MainWindow", "Version: 1.0.0"))
