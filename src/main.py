@@ -61,7 +61,7 @@ class Ui_MainWindow(object):
         riotclient_session_token, riotclient_app_port = asyncio.run(get_lcu())
         riotclient_headers = asyncio.run(get_headers(riotclient_session_token))
         summoners = asyncio.run(get_summoners(riotclient_app_port, riotclient_headers))
-        scraper.driver.get(f'https://www.op.gg/multisearch/kr?summoners=dguisejjuni')
+        scraper.driver.get(f'https://www.op.gg/multisearch/kr?summoners={summoners}')
         screenshot = scraper.get_image()
         pixmap = QPixmap()
         pixmap.loadFromData(screenshot)
