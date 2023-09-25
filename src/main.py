@@ -53,7 +53,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Jeaveler"))
         self.reveal.setText(_translate("MainWindow", "팀 전적 확인"))
         self.go_github.setText(_translate("MainWindow", "Github"))
-        self.version_label.setText(_translate("MainWindow", "Version: 1.0.0"))
+        self.version_label.setText(_translate("MainWindow", "Version: 1.0.1"))
         return
     
     def reveal_btn_clicked(self):
