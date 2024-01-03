@@ -15,10 +15,16 @@ class SummonerInfoScraper:
         self.options.add_argument('--ignore-certificate-errors')
         self.options.add_argument('--ignore-ssl-errors')
         self.options.add_argument('headless')
-        self.options.add_argument('window-size=2560,1440')
+        self.options.add_argument('window-size=2560,2000')
         self.driver = webdriver.Chrome(options=self.options)
-        self.driver.get('https://www.op.gg/multisearch/kr?summoners=')
+        self.driver.get('https://fow.kr/multi')
 
-    def get_image(self) :
-        info = wait(self.driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'multi-list')))
+    def get_image(self, summoners):
+        print(summoners)
+        self.driver.get('https://fow.kr/multi')
+        searchBtn = wait(self.driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'sbtn')))
+        self.driver.execute_script(f"document.getElementById('multi_text').value='{summoners}'")
+        searchBtn.click()
+        wait(self.driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'ms_td')))
+        info = self.driver.find_element(By.ID, 'multi_result')
         return info.screenshot_as_png
