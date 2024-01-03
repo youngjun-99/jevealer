@@ -41,11 +41,10 @@ async def get_summoners(riotclient_app_port, riotclient_headers):
                                headers=riotclient_headers, verify_ssl=False) as response:
             summoners = await response.text()
             summoners = json.loads(summoners)['participants']
-            summoners = ",".join([summoner['game_name'] for summoner in summoners])
+            summoners = ",".join([summoner['game_name'] + '#' + summoner['game_tag'] for summoner in summoners])
             return summoners
 
 if __name__ == '__main__':
     riotclient_session_token, riotclient_app_port = asyncio.run(get_lcu())
     riotclient_headers = asyncio.run(get_headers(riotclient_session_token))
     summoners = asyncio.run(get_summoners(riotclient_app_port, riotclient_headers))
-    

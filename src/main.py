@@ -4,6 +4,7 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtGui import QPixmap
 from riotclient import *
 from scraper import SummonerInfoScraper
+from urllib.parse import quote
 import webbrowser
 
 scraper = SummonerInfoScraper()
@@ -11,11 +12,11 @@ scraper = SummonerInfoScraper()
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1120, 920)
+        MainWindow.resize(1020, 1170)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(20, 40, 1100, 900))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(20, 20, 1000, 1150))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -24,7 +25,7 @@ class Ui_MainWindow(object):
         self.image.setObjectName("image")
         self.verticalLayout.addWidget(self.image)
         self.horizontalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(20, 10, 1100, 30))
+        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(20, 10, 1000, 30))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
@@ -53,15 +54,14 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Jeaveler"))
         self.reveal.setText(_translate("MainWindow", "팀 전적 확인"))
         self.go_github.setText(_translate("MainWindow", "Github"))
-        self.version_label.setText(_translate("MainWindow", "Version: 1.0.1"))
+        self.version_label.setText(_translate("MainWindow", "Version: 1.0.2"))
         return
     
     def reveal_btn_clicked(self):
         riotclient_session_token, riotclient_app_port = asyncio.run(get_lcu())
         riotclient_headers = asyncio.run(get_headers(riotclient_session_token))
         summoners = asyncio.run(get_summoners(riotclient_app_port, riotclient_headers))
-        scraper.driver.get(f'https://www.op.gg/multisearch/kr?summoners={summoners}')
-        screenshot = scraper.get_image()
+        screenshot = scraper.get_image(summoners)
         pixmap = QPixmap()
         pixmap.loadFromData(screenshot)
         self.image.setPixmap(pixmap)
